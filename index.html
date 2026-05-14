@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0" />
+
+  <title>Secure Payment Gateway</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+
+    body {
+
+      background: #0f172a;
+
+    }
+
+    .glass {
+
+      backdrop-filter: blur(12px);
+
+      background: rgba(255,255,255,0.95);
+
+    }
+
+  </style>
+
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-4">
+
+  <div class="glass w-full max-w-md rounded-3xl overflow-hidden shadow-2xl">
+
+    <!-- HEADER -->
+
+    <div class="bg-black text-white p-6">
+
+      <div class="flex justify-between items-start">
+
+        <div>
+
+          <p class="text-gray-400 text-xs uppercase mb-1">
+            Paying To
+          </p>
+
+          <h1 class="text-2xl font-bold">
+            JAYADEEP KHETRI
+          </h1>
+
+        </div>
+
+        <div class="bg-white/10 p-3 rounded-xl">
+
+          <i class="fa-solid fa-shield-halved text-green-400 text-xl"></i>
+
+        </div>
+
+      </div>
+
+      <div class="mt-5">
+
+        <p class="text-gray-400 text-sm">
+          Amount
+        </p>
+
+        <h2 class="text-5xl font-bold">
+          ₹1
+        </h2>
+
+      </div>
+
+    </div>
+
+    <!-- BODY -->
+
+    <div class="p-6">
+
+      <!-- QR -->
+
+      <div class="bg-gray-100 rounded-2xl p-5 text-center">
+
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=paytmqrpmivwx2rxg@paytm&pn=JAYADEEP%20KHETRI&am=1&cu=INR"
+          class="w-60 h-60 mx-auto rounded-xl bg-white p-2 shadow" />
+
+        <p class="text-sm text-gray-500 mt-4">
+
+          Scan using any UPI app
+
+        </p>
+
+      </div>
+
+      <!-- UPI ID -->
+
+      <div class="mt-5">
+
+        <label class="text-sm font-semibold text-gray-700">
+
+          UPI ID
+
+        </label>
+
+        <div class="flex mt-2">
+
+          <input
+            id="upiId"
+            value="paytmqrpmivwx2rxg@paytm"
+            readonly
+            class="flex-1 border rounded-l-xl px-4 py-3 bg-gray-50 outline-none" />
+
+          <button
+            id="copyBtn"
+            class="bg-black text-white px-5 rounded-r-xl">
+
+            <i class="fa-solid fa-copy"></i>
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- PAY BUTTON -->
+
+      <a
+        href="upi://pay?pa=paytmqrpmivwx2rxg@paytm&pn=JAYADEEP%20KHETRI&am=1&cu=INR"
+        class="mt-5 w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-semibold flex items-center justify-center gap-3">
+
+        <i class="fa-solid fa-mobile-screen"></i>
+
+        Open UPI App
+
+      </a>
+
+      <!-- UTR -->
+
+      <div class="mt-6">
+
+        <label class="text-sm font-semibold text-gray-700">
+
+          Enter UTR / Order ID
+
+        </label>
+
+        <input
+          id="utrInput"
+          type="text"
+          placeholder="Enter payment UTR"
+          class="w-full mt-2 border rounded-2xl px-4 py-4 outline-none focus:ring-2 focus:ring-black font-mono tracking-wider" />
+
+      </div>
+
+      <!-- VERIFY BUTTON -->
+
+      <button
+        id="verifyBtn"
+        class="mt-6 w-full bg-black hover:bg-gray-900 text-white py-4 rounded-2xl font-semibold">
+
+        Verify Payment
+
+      </button>
+
+      <!-- STATUS -->
+
+      <div
+        id="statusBox"
+        class="hidden mt-6 rounded-2xl p-5 text-center border">
+
+        <div id="loadingBox">
+
+          <div
+            class="w-14 h-14 border-4 border-gray-300 border-t-black rounded-full animate-spin mx-auto">
+          </div>
+
+          <h3 class="mt-4 text-xl font-bold">
+
+            Verifying Payment
+
+          </h3>
+
+          <p class="text-gray-500 text-sm mt-2">
+
+            Please wait while we confirm your payment
+
+          </p>
+
+          <div class="mt-4 text-3xl font-bold"
+            id="timer">
+
+            02:00
+
+          </div>
+
+        </div>
+
+        <!-- SUCCESS -->
+
+        <div id="successBox" class="hidden">
+
+          <div
+            class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto">
+
+            <i class="fa-solid fa-check text-4xl text-green-600"></i>
+
+          </div>
+
+          <h3 class="text-2xl font-bold mt-4">
+
+            Payment Successful
+
+          </h3>
+
+          <p class="text-gray-500 mt-2">
+
+            Verification completed successfully
+
+          </p>
+
+          <a
+            href="https://www.google.com/"
+            target="_blank"
+            class="mt-5 inline-flex bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-2xl font-semibold gap-2 items-center">
+
+            <i class="fa-solid fa-download"></i>
+
+            Download Now
+
+          </a>
+
+        </div>
+
+        <!-- FAILED -->
+
+        <div id="failedBox" class="hidden">
+
+          <div
+            class="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center mx-auto">
+
+            <i class="fa-solid fa-xmark text-4xl text-red-600"></i>
+
+          </div>
+
+          <h3 class="text-2xl font-bold mt-4">
+
+            Verification Failed
+
+          </h3>
+
+          <p class="text-gray-500 mt-2">
+
+            UTR not found or payment pending
+
+          </p>
+
+          <button
+            onclick="location.reload()"
+            class="mt-5 bg-black text-white px-6 py-4 rounded-2xl">
+
+            Try Again
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FIREBASE -->
+
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      onSnapshot,
+      doc
+    }
+      from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    // FIREBASE CONFIG
+
+    const firebaseConfig = {
+
+      apiKey: "AIzaSyAAMOrHK8W6S4D_kFpJGHOiLX9n1V8clTU",
+
+      authDomain: "paymentgetaway-87367.firebaseapp.com",
+
+      projectId: "paymentgetaway-87367",
+
+      storageBucket: "paymentgetaway-87367.firebasestorage.app",
+
+      messagingSenderId: "692056586768",
+
+      appId: "1:692056586768:web:7216718e3bc6ea1fc3a895"
+
+    };
+
+    // INIT
+
+    const app = initializeApp(firebaseConfig);
+
+    const db = getFirestore(app);
+
+    // COPY BUTTON
+
+    document.getElementById("copyBtn")
+      .addEventListener("click", () => {
+
+        navigator.clipboard.writeText(
+          "paytmqrpmivwx2rxg@paytm"
+        );
+
+        alert("UPI ID Copied");
+
+      });
+
+    // VERIFY
+
+    let timerInterval;
+
+    let unsubscribe = null;
+
+    document.getElementById("verifyBtn")
+      .addEventListener("click", async () => {
+
+        const utr =
+          document.getElementById("utrInput")
+            .value
+            .trim();
+
+        if (!utr) {
+
+          alert("Enter valid UTR");
+
+          return;
+
+        }
+
+        const btn =
+          document.getElementById("verifyBtn");
+
+        btn.disabled = true;
+
+        btn.innerHTML =
+          `<i class="fa-solid fa-spinner fa-spin"></i> Verifying...`;
+
+        try {
+
+          // SAVE TO FIRESTORE
+
+          const docRef =
+            await addDoc(
+              collection(db, "purchases"),
+              {
+
+                utr: utr,
+
+                status: "pending",
+
+                timestamp: Date.now()
+
+              }
+            );
+
+          // SHOW STATUS
+
+          document.getElementById("statusBox")
+            .classList.remove("hidden");
+
+          // START TIMER
+
+          startTimer(120);
+
+          // REALTIME LISTENER
+
+          unsubscribe =
+            onSnapshot(
+              doc(db, "purchases", docRef.id),
+
+              (snapshot) => {
+
+                if (!snapshot.exists()) return;
+
+                const data = snapshot.data();
+
+                if (data.status === "approved") {
+
+                  clearInterval(timerInterval);
+
+                  showSuccess();
+
+                  if (unsubscribe)
+                    unsubscribe();
+
+                }
+
+              }
+            );
+
+        } catch (err) {
+
+          console.error(err);
+
+          alert("Error connecting database");
+
+          btn.disabled = false;
+
+          btn.innerHTML =
+            "Verify Payment";
+
+        }
+
+      });
+
+    // TIMER
+
+    function startTimer(seconds) {
+
+      let time = seconds;
+
+      timerInterval = setInterval(() => {
+
+        const min =
+          String(Math.floor(time / 60))
+            .padStart(2, "0");
+
+        const sec =
+          String(time % 60)
+            .padStart(2, "0");
+
+        document.getElementById("timer")
+          .innerText =
+          `${min}:${sec}`;
+
+        time--;
+
+        if (time < 0) {
+
+          clearInterval(timerInterval);
+
+          showFailed();
+
+          if (unsubscribe)
+            unsubscribe();
+
+        }
+
+      }, 1000);
+
+    }
+
+    // SUCCESS
+
+    function showSuccess() {
+
+      document.getElementById("loadingBox")
+        .classList.add("hidden");
+
+      document.getElementById("failedBox")
+        .classList.add("hidden");
+
+      document.getElementById("successBox")
+        .classList.remove("hidden");
+
+    }
+
+    // FAILED
+
+    function showFailed() {
+
+      document.getElementById("loadingBox")
+        .classList.add("hidden");
+
+      document.getElementById("successBox")
+        .classList.add("hidden");
+
+      document.getElementById("failedBox")
+        .classList.remove("hidden");
+
+    }
+
+  </script>
+
+</body>
+
+</html>
