@@ -8,7 +8,7 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0" />
 
-  <title>Secure Payment Gateway</title>
+  <title>UPI Payment Gateway</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -19,15 +19,17 @@
 
     body {
 
-      background: #0f172a;
+      background: #081b63;
+
+      font-family: sans-serif;
 
     }
 
     .glass {
 
-      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.97);
 
-      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
 
     }
 
@@ -37,237 +39,309 @@
 
 <body class="min-h-screen flex items-center justify-center p-4">
 
-  <div class="glass w-full max-w-md rounded-3xl overflow-hidden shadow-2xl">
+  <div class="w-full max-w-md">
 
-    <!-- HEADER -->
+    <!-- MAIN CARD -->
 
-    <div class="bg-black text-white p-6">
+    <div class="glass rounded-[35px] overflow-hidden shadow-2xl">
 
-      <div class="flex justify-between items-start">
+      <!-- TOP -->
 
-        <div>
+      <div class="bg-[#dff4ff] p-5">
 
-          <p class="text-gray-400 text-xs uppercase mb-1">
-            Paying To
-          </p>
+        <div class="flex gap-4">
 
-          <h1 class="text-2xl font-bold">
-            JAYADEEP KHETRI
+          <!-- ICON -->
+
+          <div
+            class="bg-white rounded-3xl w-28 h-28 flex items-center justify-center shadow">
+
+            <i
+              class="fa-solid fa-basket-shopping text-6xl text-gray-700">
+            </i>
+
+          </div>
+
+          <!-- DETAILS -->
+
+          <div class="flex-1 space-y-3">
+
+            <div
+              class="bg-white rounded-2xl p-4 shadow">
+
+              <p class="text-4xl font-black leading-none">
+
+                JAYADEEP
+                <br>
+                KHETRI
+
+              </p>
+
+            </div>
+
+            <div
+              class="bg-white rounded-2xl p-4 shadow">
+
+              <p class="text-4xl font-black">
+
+                ₹1
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CENTER -->
+
+      <div class="bg-[#11b3e9] pt-10 pb-20 px-5">
+
+        <div
+          class="bg-white rounded-[35px] p-6 shadow-xl text-center">
+
+          <!-- LOGO -->
+
+          <h1 class="text-5xl font-black">
+
+            <span class="text-[#002970]">
+              Pay
+            </span>
+
+            <span class="text-[#00baf2]">
+              tm
+            </span>
+
           </h1>
 
-        </div>
+          <p class="text-2xl font-bold mt-1">
 
-        <div class="bg-white/10 p-3 rounded-xl">
+            Accepted Here
 
-          <i class="fa-solid fa-shield-halved text-green-400 text-xl"></i>
+          </p>
 
-        </div>
+          <!-- QR -->
 
-      </div>
+          <div class="mt-5">
 
-      <div class="mt-5">
+            <img
+              src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi%3A%2F%2Fpay%3Fpa%3Dpaytmqrpmivwx2rxg%40paytm%26pn%3DJAYADEEP%2520KHETRI%26am%3D1%26cu%3DINR"
+              class="w-72 h-72 mx-auto" />
 
-        <p class="text-gray-400 text-sm">
-          Amount
-        </p>
+          </div>
 
-        <h2 class="text-5xl font-bold">
-          ₹1
-        </h2>
+          <!-- UPI -->
 
-      </div>
+          <div class="mt-5">
 
-    </div>
+            <p class="text-2xl">
 
-    <!-- BODY -->
+              UPI ID:
+              <span class="font-semibold">
 
-    <div class="p-6">
+                paytmqrpmivwx2rxg@paytm
 
-      <!-- QR -->
+              </span>
 
-      <div class="bg-gray-100 rounded-2xl p-5 text-center">
+            </p>
 
-        <img
-          src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=paytmqrpmivwx2rxg@paytm&pn=JAYADEEP%20KHETRI&am=1&cu=INR"
-          class="w-60 h-60 mx-auto rounded-xl bg-white p-2 shadow" />
+          </div>
 
-        <p class="text-sm text-gray-500 mt-4">
+          <!-- BUTTONS -->
 
-          Scan using any UPI app
+          <div class="mt-6 space-y-3">
 
-        </p>
+            <!-- PAY -->
 
-      </div>
+            <a
+              href="upi://pay?pa=paytmqrpmivwx2rxg@paytm&pn=JAYADEEP%20KHETRI&am=1&cu=INR"
+              class="w-full bg-[#002970] hover:bg-[#001d4d] text-white py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3">
 
-      <!-- UPI ID -->
+              <i class="fa-solid fa-mobile-screen"></i>
 
-      <div class="mt-5">
+              Pay Now
 
-        <label class="text-sm font-semibold text-gray-700">
+            </a>
 
-          UPI ID
+            <!-- COPY -->
 
-        </label>
+            <button
+              onclick="copyUPI()"
+              class="w-full bg-black hover:bg-gray-900 text-white py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3">
 
-        <div class="flex mt-2">
+              <i class="fa-solid fa-copy"></i>
 
-          <input
-            id="upiId"
-            value="paytmqrpmivwx2rxg@paytm"
-            readonly
-            class="flex-1 border rounded-l-xl px-4 py-3 bg-gray-50 outline-none" />
+              Copy UPI ID
+
+            </button>
+
+          </div>
+
+          <!-- STEP -->
+
+          <div class="mt-8">
+
+            <p class="text-gray-500 font-semibold">
+
+              After payment enter UTR number
+
+            </p>
+
+          </div>
+
+          <!-- UTR -->
+
+          <div class="mt-4">
+
+            <input
+              id="utrInput"
+              type="text"
+              placeholder="Enter UTR / Order ID"
+              class="w-full border-2 border-gray-200 rounded-2xl px-5 py-4 text-center text-lg font-semibold outline-none focus:border-[#00baf2]" />
+
+          </div>
+
+          <!-- VERIFY -->
 
           <button
-            id="copyBtn"
-            class="bg-black text-white px-5 rounded-r-xl">
+            id="verifyBtn"
+            class="mt-5 w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold text-xl">
 
-            <i class="fa-solid fa-copy"></i>
+            Verify Payment
 
           </button>
 
-        </div>
-
-      </div>
-
-      <!-- PAY BUTTON -->
-
-      <a
-        href="upi://pay?pa=paytmqrpmivwx2rxg@paytm&pn=JAYADEEP%20KHETRI&am=1&cu=INR"
-        class="mt-5 w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-semibold flex items-center justify-center gap-3">
-
-        <i class="fa-solid fa-mobile-screen"></i>
-
-        Open UPI App
-
-      </a>
-
-      <!-- UTR -->
-
-      <div class="mt-6">
-
-        <label class="text-sm font-semibold text-gray-700">
-
-          Enter UTR / Order ID
-
-        </label>
-
-        <input
-          id="utrInput"
-          type="text"
-          placeholder="Enter payment UTR"
-          class="w-full mt-2 border rounded-2xl px-4 py-4 outline-none focus:ring-2 focus:ring-black font-mono tracking-wider" />
-
-      </div>
-
-      <!-- VERIFY BUTTON -->
-
-      <button
-        id="verifyBtn"
-        class="mt-6 w-full bg-black hover:bg-gray-900 text-white py-4 rounded-2xl font-semibold">
-
-        Verify Payment
-
-      </button>
-
-      <!-- STATUS -->
-
-      <div
-        id="statusBox"
-        class="hidden mt-6 rounded-2xl p-5 text-center border">
-
-        <div id="loadingBox">
+          <!-- STATUS -->
 
           <div
-            class="w-14 h-14 border-4 border-gray-300 border-t-black rounded-full animate-spin mx-auto">
+            id="statusBox"
+            class="hidden mt-8">
+
+            <!-- LOADING -->
+
+            <div id="loadingBox">
+
+              <div
+                class="w-16 h-16 border-4 border-gray-300 border-t-green-600 rounded-full animate-spin mx-auto">
+              </div>
+
+              <h2 class="text-2xl font-bold mt-4">
+
+                Verifying Payment
+
+              </h2>
+
+              <p class="text-gray-500 mt-2">
+
+                Please wait...
+
+              </p>
+
+              <div
+                id="timer"
+                class="text-4xl font-black mt-5">
+
+                02:00
+
+              </div>
+
+            </div>
+
+            <!-- SUCCESS -->
+
+            <div
+              id="successBox"
+              class="hidden">
+
+              <div
+                class="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center mx-auto">
+
+                <i
+                  class="fa-solid fa-check text-5xl text-green-600">
+                </i>
+
+              </div>
+
+              <h2
+                class="text-3xl font-black mt-5">
+
+                Payment Successful
+
+              </h2>
+
+              <p class="text-gray-500 mt-3">
+
+                Payment verified successfully
+
+              </p>
+
+              <a
+                href="https://google.com"
+                target="_blank"
+                class="mt-6 inline-flex bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-2xl font-bold text-lg items-center gap-3">
+
+                <i class="fa-solid fa-download"></i>
+
+                Download
+
+              </a>
+
+            </div>
+
+            <!-- FAILED -->
+
+            <div
+              id="failedBox"
+              class="hidden">
+
+              <div
+                class="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center mx-auto">
+
+                <i
+                  class="fa-solid fa-xmark text-5xl text-red-600">
+                </i>
+
+              </div>
+
+              <h2
+                class="text-3xl font-black mt-5">
+
+                Verification Failed
+
+              </h2>
+
+              <p class="text-gray-500 mt-3">
+
+                UTR not found
+
+              </p>
+
+              <button
+                onclick="location.reload()"
+                class="mt-6 bg-black text-white px-8 py-4 rounded-2xl font-bold">
+
+                Try Again
+
+              </button>
+
+            </div>
+
           </div>
 
-          <h3 class="mt-4 text-xl font-bold">
+          <!-- FOOTER -->
 
-            Verifying Payment
+          <div class="mt-10">
 
-          </h3>
+            <p class="text-sm text-gray-400">
 
-          <p class="text-gray-500 text-sm mt-2">
+              100% Secure Payments
 
-            Please wait while we confirm your payment
-
-          </p>
-
-          <div class="mt-4 text-3xl font-bold"
-            id="timer">
-
-            02:00
+            </p>
 
           </div>
-
-        </div>
-
-        <!-- SUCCESS -->
-
-        <div id="successBox" class="hidden">
-
-          <div
-            class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto">
-
-            <i class="fa-solid fa-check text-4xl text-green-600"></i>
-
-          </div>
-
-          <h3 class="text-2xl font-bold mt-4">
-
-            Payment Successful
-
-          </h3>
-
-          <p class="text-gray-500 mt-2">
-
-            Verification completed successfully
-
-          </p>
-
-          <a
-            href="https://www.google.com/"
-            target="_blank"
-            class="mt-5 inline-flex bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-2xl font-semibold gap-2 items-center">
-
-            <i class="fa-solid fa-download"></i>
-
-            Download Now
-
-          </a>
-
-        </div>
-
-        <!-- FAILED -->
-
-        <div id="failedBox" class="hidden">
-
-          <div
-            class="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center mx-auto">
-
-            <i class="fa-solid fa-xmark text-4xl text-red-600"></i>
-
-          </div>
-
-          <h3 class="text-2xl font-bold mt-4">
-
-            Verification Failed
-
-          </h3>
-
-          <p class="text-gray-500 mt-2">
-
-            UTR not found or payment pending
-
-          </p>
-
-          <button
-            onclick="location.reload()"
-            class="mt-5 bg-black text-white px-6 py-4 rounded-2xl">
-
-            Try Again
-
-          </button>
 
         </div>
 
@@ -311,24 +385,23 @@
 
     };
 
-    // INIT
+    const app =
+      initializeApp(firebaseConfig);
 
-    const app = initializeApp(firebaseConfig);
+    const db =
+      getFirestore(app);
 
-    const db = getFirestore(app);
+    // COPY
 
-    // COPY BUTTON
+    window.copyUPI = function () {
 
-    document.getElementById("copyBtn")
-      .addEventListener("click", () => {
+      navigator.clipboard.writeText(
+        "paytmqrpmivwx2rxg@paytm"
+      );
 
-        navigator.clipboard.writeText(
-          "paytmqrpmivwx2rxg@paytm"
-        );
+      alert("UPI ID Copied");
 
-        alert("UPI ID Copied");
-
-      });
+    };
 
     // VERIFY
 
@@ -336,13 +409,15 @@
 
     let unsubscribe = null;
 
-    document.getElementById("verifyBtn")
+    document
+      .getElementById("verifyBtn")
       .addEventListener("click", async () => {
 
         const utr =
-          document.getElementById("utrInput")
-            .value
-            .trim();
+          document
+          .getElementById("utrInput")
+          .value
+          .trim();
 
         if (!utr) {
 
@@ -353,16 +428,17 @@
         }
 
         const btn =
-          document.getElementById("verifyBtn");
+          document
+          .getElementById("verifyBtn");
 
         btn.disabled = true;
 
         btn.innerHTML =
-          `<i class="fa-solid fa-spinner fa-spin"></i> Verifying...`;
+          `<i class="fa-solid fa-spinner fa-spin"></i> Verifying`;
 
         try {
 
-          // SAVE TO FIRESTORE
+          // SAVE ORDER
 
           const docRef =
             await addDoc(
@@ -380,28 +456,41 @@
 
           // SHOW STATUS
 
-          document.getElementById("statusBox")
-            .classList.remove("hidden");
+          document
+            .getElementById("statusBox")
+            .classList
+            .remove("hidden");
 
           // START TIMER
 
           startTimer(120);
 
-          // REALTIME LISTENER
+          // REALTIME
 
           unsubscribe =
             onSnapshot(
-              doc(db, "purchases", docRef.id),
+              doc(
+                db,
+                "purchases",
+                docRef.id
+              ),
 
               (snapshot) => {
 
-                if (!snapshot.exists()) return;
+                if (!snapshot.exists())
+                  return;
 
-                const data = snapshot.data();
+                const data =
+                  snapshot.data();
 
-                if (data.status === "approved") {
+                if (
+                  data.status ===
+                  "approved"
+                ) {
 
-                  clearInterval(timerInterval);
+                  clearInterval(
+                    timerInterval
+                  );
 
                   showSuccess();
 
@@ -417,7 +506,9 @@
 
           console.error(err);
 
-          alert("Error connecting database");
+          alert(
+            "Database Error"
+          );
 
           btn.disabled = false;
 
@@ -434,34 +525,40 @@
 
       let time = seconds;
 
-      timerInterval = setInterval(() => {
+      timerInterval =
+        setInterval(() => {
 
-        const min =
-          String(Math.floor(time / 60))
-            .padStart(2, "0");
+          const min =
+            String(
+              Math.floor(time / 60)
+            ).padStart(2, "0");
 
-        const sec =
-          String(time % 60)
-            .padStart(2, "0");
+          const sec =
+            String(
+              time % 60
+            ).padStart(2, "0");
 
-        document.getElementById("timer")
-          .innerText =
-          `${min}:${sec}`;
+          document
+            .getElementById("timer")
+            .innerText =
+            `${min}:${sec}`;
 
-        time--;
+          time--;
 
-        if (time < 0) {
+          if (time < 0) {
 
-          clearInterval(timerInterval);
+            clearInterval(
+              timerInterval
+            );
 
-          showFailed();
+            showFailed();
 
-          if (unsubscribe)
-            unsubscribe();
+            if (unsubscribe)
+              unsubscribe();
 
-        }
+          }
 
-      }, 1000);
+        }, 1000);
 
     }
 
@@ -469,14 +566,20 @@
 
     function showSuccess() {
 
-      document.getElementById("loadingBox")
-        .classList.add("hidden");
+      document
+        .getElementById("loadingBox")
+        .classList
+        .add("hidden");
 
-      document.getElementById("failedBox")
-        .classList.add("hidden");
+      document
+        .getElementById("failedBox")
+        .classList
+        .add("hidden");
 
-      document.getElementById("successBox")
-        .classList.remove("hidden");
+      document
+        .getElementById("successBox")
+        .classList
+        .remove("hidden");
 
     }
 
@@ -484,14 +587,20 @@
 
     function showFailed() {
 
-      document.getElementById("loadingBox")
-        .classList.add("hidden");
+      document
+        .getElementById("loadingBox")
+        .classList
+        .add("hidden");
 
-      document.getElementById("successBox")
-        .classList.add("hidden");
+      document
+        .getElementById("successBox")
+        .classList
+        .add("hidden");
 
-      document.getElementById("failedBox")
-        .classList.remove("hidden");
+      document
+        .getElementById("failedBox")
+        .classList
+        .remove("hidden");
 
     }
 
